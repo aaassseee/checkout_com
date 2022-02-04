@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:checkout_com_api_client/src/constant/log.dart';
+import '../../constant/log.dart';
 
 class LogEvent {
   LogEvent(this.type, {this.event, this.metadata});

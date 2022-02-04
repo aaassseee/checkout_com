@@ -1,5 +1,4 @@
-import 'package:checkout_com_frames/src/utility.dart';
-
+import '../utility.dart';
 import 'card_type.dart';
 
 class CardFormValue {

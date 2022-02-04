@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:checkout_com_frames/checkout_com_frames.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -16,15 +15,15 @@ class ExampleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Localizations Sample App',
-      localizationsDelegates: const [
+      localizationsDelegates: [
         CheckoutFramesLocalization.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
+      supportedLocales: [
         Locale('en', ''),
         Locale('fr', ''),
         Locale('ro', ''),
@@ -35,7 +34,7 @@ class ExampleApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

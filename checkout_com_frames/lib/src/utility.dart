@@ -1,6 +1,7 @@
-import 'package:checkout_com_frames/src/extension.dart';
-import 'package:checkout_com_frames/src/model/card_type.dart';
 import 'package:clock/clock.dart';
+
+import 'extension.dart';
+import 'model/card_type.dart';
 
 class CardUtility {
   const CardUtility._();

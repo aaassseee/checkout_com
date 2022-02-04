@@ -1,8 +1,9 @@
-import 'package:checkout_com_frames/src/l10n/l10n.dart';
-import 'package:checkout_com_frames/src/model/billing.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_country/flutter_country.dart';
+
+import '../l10n/l10n.dart';
+import '../model/billing.dart';
 
 typedef OnDoneTapped = void Function(BillingFormValue value);
 
