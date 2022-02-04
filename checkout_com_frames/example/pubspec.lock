@@ -32,9 +32,9 @@ packages:
   checkout_com_api_client:
     dependency: transitive
     description:
-      path: "../../checkout_com_api_client"
-      relative: true
-    source: path
+      name: checkout_com_api_client
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   checkout_com_frames:
     dependency: "direct main"
@@ -90,15 +90,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_country:
-    dependency: transitive
-    description:
-      path: flutter_country
-      ref: HEAD
-      resolved-ref: "45724c87408aeb51c61a29d1489afe4cfa6bf6a3"
-      url: "https://github.com/aaassseee/country.git"
-    source: git
-    version: "0.0.3"
   flutter_lints:
     dependency: "direct dev"
     description:

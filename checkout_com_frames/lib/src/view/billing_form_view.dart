@@ -1,6 +1,6 @@
+import 'package:country/country.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_country/flutter_country.dart';
 
 import '../l10n/l10n.dart';
 import '../model/billing.dart';
@@ -156,8 +156,11 @@ class _BillingFormViewState extends State<BillingFormView> {
             items: [
               for (final country in Countries.values)
                 DropdownMenuItem(
-                  child: Text(country
-                      .getIsoShortNameByLocale(const Locale('zh', 'HK'))),
+                  child: Text(country.isoShortNameByLanguage[
+                          Localizations.localeOf(context)
+                              .toLanguageTag()
+                              .toLowerCase()] ??
+                      'null'),
                   value: country,
                 )
             ],
