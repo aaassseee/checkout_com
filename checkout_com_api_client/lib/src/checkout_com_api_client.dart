@@ -11,7 +11,6 @@ import 'extension/response.dart';
 import 'model/local/api_error.dart';
 import 'model/local/log_event.dart';
 import 'model/service/environment.dart';
-import 'model/service/token_type.dart';
 import 'model/service/tokenization_request.dart';
 import 'model/service/tokenization_response.dart';
 
@@ -50,7 +49,7 @@ class CheckoutComApiClient {
 
   Map<String, String> get header => {
         HttpHeaders.authorizationHeader: key,
-        HttpHeaders.userAgentHeader: 'checkout-sdk-frames-android/0.0.1',
+        HttpHeaders.userAgentHeader: 'checkout-sdk-frames-flutter/0.0.1',
         HttpHeaders.contentTypeHeader: 'application/json',
         'Cko-Correlation-Id': correlationID,
       };
@@ -58,12 +57,12 @@ class CheckoutComApiClient {
   Map<String, String> get _metadata =>
       {'publicKey': key, 'correlationID': correlationID};
 
-  Future<CardTokenizationSuccessResponse> generateToken(
-      CardTokenizationRequest request) async {
+  Future<TokenizationSuccessResponse> _generateToken(
+      TokenizationRequest request) async {
     try {
       _logger.info(LogEvent(LogEventType.tokenRequested,
           event: {
-            logEventAttributeTokenType: TokenType.card.value,
+            logEventAttributeTokenType: request.tokenType,
           },
           metadata: _metadata));
       final response = await client
@@ -86,51 +85,25 @@ class CheckoutComApiClient {
       }
 
       if (!response.isSuccess) {
-        throw CardTokenizationFailResponse.fromJson(json.decode(result));
+        throw TokenizationFailResponse.fromJson(json.decode(result));
       }
 
-      return CardTokenizationSuccessResponse.fromJson(json.decode(result));
+      return TokenizationSuccessResponse.fromJson(json.decode(result));
     } catch (error, stackTrace) {
       _logger.shout(error, error, stackTrace);
       rethrow;
     }
   }
 
-  Future<GooglePayTokenizationSuccessResponse> generateGooglePayToken(
-      GooglePayTokenizationRequest request) async {
-    try {
-      _logger.info(LogEvent(LogEventType.tokenRequested,
-          event: {
-            logEventAttributeTokenType: TokenType.googlePay.value,
-          },
-          metadata: _metadata));
-      final response = await client
-          .post(Uri.https(authority, 'tokens'),
-              headers: header, body: request.toJson())
-          .timeout(apiTimeout);
+  Future<TokenizationSuccessResponse> generateCardToken(
+          CardTokenizationRequest request) =>
+      _generateToken(request);
 
-      final result = response.body;
-      if (result.isEmpty) {
-        String message;
-        if (response.isSuccess || response.statusCode == 422) {
-          message = 'Invalid server response';
-        } else if (response.statusCode == 401) {
-          message = 'Unauthorised request';
-        } else {
-          message = 'Token request failed';
-        }
+  Future<TokenizationSuccessResponse> generateGooglePayToken(
+          GooglePayTokenizationRequest request) =>
+      _generateToken(request);
 
-        throw ApiNetworkError(response, message);
-      }
-
-      if (!response.isSuccess) {
-        throw GooglePayTokenizationFailResponse.fromJson(json.decode(result));
-      }
-
-      return GooglePayTokenizationSuccessResponse.fromJson(json.decode(result));
-    } catch (error, stackTrace) {
-      _logger.shout(error, error, stackTrace);
-      rethrow;
-    }
-  }
+  Future<TokenizationResponse> generateApplePayToken(
+          ApplePayTokenizationRequest request) =>
+      _generateToken(request);
 }

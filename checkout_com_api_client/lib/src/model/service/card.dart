@@ -6,9 +6,9 @@ class Card {
 
   final String? name;
 
-  final String expiryMonth;
+  final int expiryMonth;
 
-  final String expiryYear;
+  final int expiryYear;
 
   final String cvv;
 

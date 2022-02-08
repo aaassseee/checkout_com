@@ -5,8 +5,19 @@ import 'card.dart';
 import 'phone.dart';
 import 'token_type.dart';
 
-class CardTokenizationRequest {
-  CardTokenizationRequest(this.card, {this.billing, this.phone});
+abstract class TokenizationRequest {
+  const TokenizationRequest(this.tokenType);
+
+  final TokenType tokenType;
+
+  Map? toJson();
+
+  String toJsonString() => json.encode(toJson());
+}
+
+class CardTokenizationRequest extends TokenizationRequest {
+  const CardTokenizationRequest(this.card, {this.billing, this.phone})
+      : super(TokenType.card);
 
   final Card card;
 
@@ -14,8 +25,9 @@ class CardTokenizationRequest {
 
   final Phone? phone;
 
-  Map toJson() => {
-        'type': TokenType.card.value,
+  @override
+  Map? toJson() => {
+        'type': tokenType.value,
         'number': card.number,
         if (card.name != null) 'name': card.name,
         'expiry_month': card.expiryMonth,
@@ -24,33 +36,30 @@ class CardTokenizationRequest {
         if (billing != null) 'billing_address': billing!.toJson(),
         if (phone != null) 'phone': phone!.toJson(),
       };
-
-  String toJsonString() => json.encode(toJson());
 }
 
-class GooglePayTokenizationRequest {
-  GooglePayTokenizationRequest(
-      this.signature, this.protocolVersion, this.signedMessage);
+class GooglePayTokenizationRequest extends TokenizationRequest {
+  const GooglePayTokenizationRequest(this.paymentResult)
+      : super(TokenType.googlePay);
 
-  String? signature;
+  final Map<String, dynamic> paymentResult;
 
-  String? protocolVersion;
+  @override
+  Map? toJson() => {
+        'type': tokenType.value,
+        'token_data': paymentResult,
+      };
+}
 
-  String? signedMessage;
+class ApplePayTokenizationRequest extends TokenizationRequest {
+  const ApplePayTokenizationRequest(this.paymentResult)
+      : super(TokenType.applePay);
 
-  Map? toJson() {
-    if (signature == null && protocolVersion == null && signedMessage == null) {
-      return null;
-    }
+  final Map<String, dynamic> paymentResult;
 
-    return {
-      'token_data': {
-        if (signature != null) 'signature': signature,
-        if (protocolVersion != null) 'protocolVersion': protocolVersion,
-        if (signedMessage != null) 'signedMessage': signedMessage,
-      }
-    };
-  }
-
-  String toJsonString() => json.encode(toJson());
+  @override
+  Map? toJson() => {
+        'type': tokenType.value,
+        'token_data': paymentResult,
+      };
 }
