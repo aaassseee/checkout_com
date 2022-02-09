@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/l10n.dart';
-import '../model/billing.dart';
+import '../model/billing_address_form.dart';
 
 typedef OnDoneTapped = void Function(BillingFormValue value);
 
@@ -164,6 +164,7 @@ class _BillingFormViewState extends State<BillingFormView> {
                   value: country,
                 )
             ],
+            isExpanded: true,
             decoration: InputDecoration(
               label: Text(
                   CheckoutFramesLocalization.of(context).placeholderCountry),

@@ -138,13 +138,14 @@ class TokenizationFailResponse extends TokenizationResponse {
       : super._();
 
   TokenizationFailResponse.fromJson(Map<String, dynamic> json)
-      : this._(json['request_id'], json['error_type'], json['error_codes']);
+      : this._(json['request_id'], json['error_type'],
+            List<String>.from(json['error_codes']));
 
-  final String? requestId;
+  final String requestId;
 
-  final String? errorType;
+  final String errorType;
 
-  final List<String>? errorCodes;
+  final List<String> errorCodes;
 
   @override
   String toString() {

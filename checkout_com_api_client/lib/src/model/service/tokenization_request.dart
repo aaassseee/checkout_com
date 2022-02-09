@@ -6,9 +6,9 @@ import 'phone.dart';
 import 'token_type.dart';
 
 abstract class TokenizationRequest {
-  const TokenizationRequest(this.tokenType);
+  const TokenizationRequest();
 
-  final TokenType tokenType;
+  TokenType get tokenType;
 
   Map? toJson();
 
@@ -16,20 +16,25 @@ abstract class TokenizationRequest {
 }
 
 class CardTokenizationRequest extends TokenizationRequest {
-  const CardTokenizationRequest(this.card, {this.billing, this.phone})
-      : super(TokenType.card);
+  const CardTokenizationRequest(this.card,
+      {this.name, this.billing, this.phone});
 
   final Card card;
+
+  final String? name;
 
   final BillingAddress? billing;
 
   final Phone? phone;
 
   @override
+  TokenType get tokenType => TokenType.card;
+
+  @override
   Map? toJson() => {
         'type': tokenType.value,
         'number': card.number,
-        if (card.name != null) 'name': card.name,
+        if (name != null) 'name': name,
         'expiry_month': card.expiryMonth,
         'expiry_year': card.expiryYear,
         'cvv': card.cvv,
@@ -39,10 +44,13 @@ class CardTokenizationRequest extends TokenizationRequest {
 }
 
 class GooglePayTokenizationRequest extends TokenizationRequest {
-  const GooglePayTokenizationRequest(this.paymentResult)
-      : super(TokenType.googlePay);
+  GooglePayTokenizationRequest(String token)
+      : paymentResult = json.decode(token);
 
   final Map<String, dynamic> paymentResult;
+
+  @override
+  TokenType get tokenType => TokenType.googlePay;
 
   @override
   Map? toJson() => {
@@ -52,10 +60,12 @@ class GooglePayTokenizationRequest extends TokenizationRequest {
 }
 
 class ApplePayTokenizationRequest extends TokenizationRequest {
-  const ApplePayTokenizationRequest(this.paymentResult)
-      : super(TokenType.applePay);
+  const ApplePayTokenizationRequest(this.paymentResult);
 
   final Map<String, dynamic> paymentResult;
+
+  @override
+  TokenType get tokenType => TokenType.applePay;
 
   @override
   Map? toJson() => {

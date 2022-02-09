@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/l10n.dart';
-import '../model/billing.dart';
+import '../model/billing_address_form.dart';
 
 typedef OnAddTapped = FutureOr<BillingFormValue?> Function();
 

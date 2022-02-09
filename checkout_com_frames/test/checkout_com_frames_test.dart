@@ -245,15 +245,15 @@ void main() {
     group('expiration date validation', () {
       withClock(Clock.fixed(DateTime(2022, 1, 1)), () {
         test('expiration date validation success', () {
-          expect(CardUtility.isValidExpirationDate('2022', '4'), true);
-          expect(CardUtility.isValidExpirationDate('2023', '2'), true);
-          expect(CardUtility.isValidExpirationDate('2022', '1'), true);
+          expect(CardUtility.isValidExpirationDate(2022, 4), true);
+          expect(CardUtility.isValidExpirationDate(2023, 2), true);
+          expect(CardUtility.isValidExpirationDate(2022, 1), true);
         });
 
         test('expiration date validation failed', () {
-          expect(CardUtility.isValidExpirationDate('2021', '4'), false);
-          expect(CardUtility.isValidExpirationDate('2021', '12'), false);
-          expect(CardUtility.isValidExpirationDate('1900', '1'), false);
+          expect(CardUtility.isValidExpirationDate(2021, 4), false);
+          expect(CardUtility.isValidExpirationDate(2021, 12), false);
+          expect(CardUtility.isValidExpirationDate(1900, 1), false);
         });
       });
     });

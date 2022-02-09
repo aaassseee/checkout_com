@@ -81,31 +81,19 @@ class CardUtility {
     return String.fromCharCodes(codeUnitList);
   }
 
-  static bool isValidExpirationDate(String year, String month) {
-    if (year.isEmpty || month.isEmpty) {
+  static bool isValidExpirationDate(int year, int month) {
+    if (year.isNegative || month < 1 || month > 12) {
       return false;
     }
 
-    final processedYear = year.removeAllSpace;
-    final processedMonth = month.removeAllSpace;
-    if (!processedYear.isNumeric || !processedMonth.isNumeric) {
-      return false;
-    }
-
-    final monthNumber = int.parse(month);
-    if (monthNumber < 1 || monthNumber > 12) {
-      return false;
-    }
-
-    final yearNumber = int.parse(year);
     final now = clock.now();
     final yearNow = now.year;
-    if (yearNumber < yearNow) {
+    if (year < yearNow) {
       return false;
     }
 
     final monthNow = now.month;
-    if (yearNumber == yearNow && monthNumber < monthNow) {
+    if (year == yearNow && month < monthNow) {
       return false;
     }
 

@@ -1,3 +1,4 @@
+import 'package:checkout_com_frames/src/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -5,10 +6,12 @@ import '../l10n/l10n.dart';
 
 class ExpirationMonthDropdownButtonFormField extends StatefulWidget {
   const ExpirationMonthDropdownButtonFormField(
-      {Key? key, required this.fieldKey})
+      {Key? key, required this.fieldKey, required this.yearFieldKey})
       : super(key: key);
 
   final GlobalKey<FormFieldState<int>> fieldKey;
+
+  final GlobalKey<FormFieldState<int>> yearFieldKey;
 
   @override
   State<ExpirationMonthDropdownButtonFormField> createState() =>
@@ -17,19 +20,19 @@ class ExpirationMonthDropdownButtonFormField extends StatefulWidget {
 
 class _ExpirationMonthDropdownButtonFormFieldState
     extends State<ExpirationMonthDropdownButtonFormField> {
-  int month = 1;
+  int month = DateTime.now().month;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<int>(
       key: widget.fieldKey,
-      items: List.generate(
-        DateTime.monthsPerYear,
-        (index) => DropdownMenuItem(
-          child: Text(DateFormat('MMM - MM').format(DateTime(0, index + 1))),
-          value: index + 1,
-        ),
-      ),
+      items: [
+        for (int month = 1; month <= DateTime.monthsPerYear; month++)
+          DropdownMenuItem(
+            child: Text(DateFormat('MMM - MM').format(DateTime(0, month))),
+            value: month,
+          ),
+      ],
       value: month,
       onChanged: (value) {
         if (value == null) {
@@ -39,6 +42,14 @@ class _ExpirationMonthDropdownButtonFormFieldState
         setState(() {
           month = value;
         });
+      },
+      validator: (value) {
+        final year = widget.yearFieldKey.currentState?.value;
+        if (year == null || !CardUtility.isValidExpirationDate(year, month)) {
+          return CheckoutFramesLocalization.of(context).errorExpirationDate;
+        }
+
+        return null;
       },
     );
   }
@@ -104,11 +115,12 @@ class ExpirationDateDropdownButtonFormField extends StatelessWidget {
         contentPadding: const EdgeInsets.only(top: 8),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: ExpirationMonthDropdownButtonFormField(
               fieldKey: monthFieldKey,
+              yearFieldKey: yearFieldKey,
             ),
           ),
           Expanded(

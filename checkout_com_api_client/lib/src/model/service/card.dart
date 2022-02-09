@@ -1,20 +1,17 @@
 class Card {
-  const Card(
-      this.number, this.name, this.expiryMonth, this.expiryYear, this.cvv);
+  const Card(this.number, this.expiryYear, this.expiryMonth, this.cvv);
 
   final String number;
 
-  final String? name;
+  final int expiryYear;
 
   final int expiryMonth;
-
-  final int expiryYear;
 
   final String cvv;
 
   @override
   String toString() {
-    return 'Card{number: $number, name: $name, expiryMonth: $expiryMonth, expiryYear: $expiryYear, cvv: $cvv}';
+    return 'Card{number: $number, expiryYear: $expiryYear, expiryMonth: $expiryMonth, cvv: $cvv}';
   }
 
   @override
@@ -23,16 +20,14 @@ class Card {
       other is Card &&
           runtimeType == other.runtimeType &&
           number == other.number &&
-          name == other.name &&
-          expiryMonth == other.expiryMonth &&
           expiryYear == other.expiryYear &&
+          expiryMonth == other.expiryMonth &&
           cvv == other.cvv;
 
   @override
   int get hashCode =>
       number.hashCode ^
-      name.hashCode ^
-      expiryMonth.hashCode ^
       expiryYear.hashCode ^
+      expiryMonth.hashCode ^
       cvv.hashCode;
 }

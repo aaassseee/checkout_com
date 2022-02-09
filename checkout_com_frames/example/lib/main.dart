@@ -1,9 +1,11 @@
-import 'dart:developer';
-
-import 'package:checkout_com_frames/checkout_com_frames.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:checkout_com_frames/checkout_com_frames.dart' hide Card;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:pay/pay.dart';
+
+const sandboxApiKey = 'pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73';
+final apiClient =
+    CheckoutComApiClient(sandboxApiKey, environment: Environment.sandbox);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,49 +17,117 @@ class ExampleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Localizations Sample App',
-      localizationsDelegates: [
+      localizationsDelegates: const [
         CheckoutFramesLocalization.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en', ''),
         Locale('fr', ''),
         Locale('ro', ''),
       ],
-      home: HomePage(),
+      home: const HomePage(),
+      onGenerateRoute: (settings) {
+        late final Widget page;
+        switch (settings.name) {
+          case HomePage.routeName:
+            page = const HomePage();
+            break;
+
+          case CardFormPage.routeName:
+            page = const CardFormPage();
+            break;
+
+          case BillingAddressFormPage.routeName:
+            final BillingFormValue? initialValue =
+                settings.arguments as BillingFormValue?;
+            page = BillingAddressFormPage(initialValue: initialValue);
+            break;
+
+          case GooglePayPage.routeName:
+            page = const GooglePayPage();
+            break;
+
+          default:
+            throw UnimplementedError('page name not found');
+        }
+
+        return MaterialPageRoute(
+          builder: (context) => page,
+          settings: settings,
+        );
+      },
     );
   }
 }
 
 class HomePage extends StatelessWidget {
+  static const routeName = '/home';
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Checkout.com Frames example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(CardFormPage.routeName),
+              child: const Text('Card tokenization'),
+            ),
+            ElevatedButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(GooglePayPage.routeName),
+              child: const Text('Google pay'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CardFormPage extends StatelessWidget {
+  static const routeName = '/cardForm';
+
+  const CardFormPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Card form')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CardFormView(
-            onAddTapped: () async =>
-                await Navigator.of(context).push(CupertinoPageRoute(
-              builder: (context) => const BillingAddressPage(),
-            )),
-            onEditTapped: (billing) async => await Navigator.of(context).push(
-              CupertinoPageRoute(
-                builder: (context) => BillingAddressPage(
-                  initialValue: billing,
-                ),
-              ),
-            ),
-            onPayTapped: (cardFormValue, billingFormValue) {
-              log(cardFormValue.toString());
-              log(billingFormValue.toString());
+            onAddTapped: () async => await Navigator.of(context)
+                    .pushNamed(BillingAddressFormPage.routeName)
+                as BillingFormValue?,
+            onEditTapped: (billing) async => await Navigator.of(context)
+                .pushNamed(BillingAddressFormPage.routeName,
+                    arguments: billing) as BillingFormValue?,
+            onPayTapped: (cardFormValue, billingFormValue) async {
+              try {
+                final tokenizationResult = await apiClient.generateCardToken(
+                    CardTokenizationRequest(cardFormValue.getCard(),
+                        name: billingFormValue?.name,
+                        billing: billingFormValue?.getBillingAddress(),
+                        phone: billingFormValue?.getPhone()));
+                print(tokenizationResult);
+              } catch (e) {
+                print(e);
+              }
             },
           ),
         ),
@@ -66,15 +136,19 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class BillingAddressPage extends StatelessWidget {
-  const BillingAddressPage({Key? key, this.initialValue}) : super(key: key);
+class BillingAddressFormPage extends StatelessWidget {
+  static const routeName = '/billingAddressForm';
+
+  const BillingAddressFormPage({Key? key, this.initialValue}) : super(key: key);
 
   final BillingFormValue? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Billing address form'),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -85,6 +159,35 @@ class BillingAddressPage extends StatelessWidget {
             onDoneTapped: (value) => Navigator.of(context).pop(value),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class GooglePayPage extends StatelessWidget {
+  static const routeName = '/googlePay';
+  const GooglePayPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Google pay'),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          GooglePayButton(
+            paymentConfigurationAsset: 'google_pay.json',
+            paymentItems: const [
+              PaymentItem(amount: '100.00'),
+            ],
+            onPaymentResult: (Map<String, dynamic> result) async {
+              print(result);
+              // apiClient.generateGooglePayToken(GooglePayTokenizationRequest(result.))
+            },
+          ),
+        ],
       ),
     );
   }

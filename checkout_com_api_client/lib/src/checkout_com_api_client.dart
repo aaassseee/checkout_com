@@ -15,7 +15,8 @@ import 'model/service/tokenization_request.dart';
 import 'model/service/tokenization_response.dart';
 
 class CheckoutComApiClient {
-  CheckoutComApiClient(this.key, {this.environment = Environment.sandbox}) {
+  CheckoutComApiClient(this.key, {this.environment = Environment.live}) {
+    hierarchicalLoggingEnabled = true;
     switch (environment) {
       case Environment.sandbox:
         _logger.level = Level.ALL;
@@ -62,12 +63,12 @@ class CheckoutComApiClient {
     try {
       _logger.info(LogEvent(LogEventType.tokenRequested,
           event: {
-            logEventAttributeTokenType: request.tokenType,
+            logEventAttributeTokenType: request.tokenType.name,
           },
           metadata: _metadata));
       final response = await client
           .post(Uri.https(authority, 'tokens'),
-              headers: header, body: request.toJson())
+              headers: header, body: request.toJsonString())
           .timeout(apiTimeout);
 
       final result = response.body;

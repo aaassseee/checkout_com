@@ -12,11 +12,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  checkout_com_api_client: ^0.0.1
+  checkout_com_api_client:
+    path: ../checkout_com_api_client
+#  checkout_com_api_client: ^0.0.1
   clock: ^1.1.0
   country: ^0.0.1
   intl: ^0.17.0
-#  pay: ^1.0.7
 
 dev_dependencies:
   flutter_test:
