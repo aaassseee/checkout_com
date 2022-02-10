@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:checkout_com_frames/checkout_com_frames.dart' hide Card;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pay/pay.dart';
@@ -86,11 +90,12 @@ class HomePage extends StatelessWidget {
                   Navigator.of(context).pushNamed(CardFormPage.routeName),
               child: const Text('Card tokenization'),
             ),
-            ElevatedButton(
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(GooglePayPage.routeName),
-              child: const Text('Google pay'),
-            ),
+            if (defaultTargetPlatform == TargetPlatform.android)
+              ElevatedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(GooglePayPage.routeName),
+                child: const Text('Google pay'),
+              ),
           ],
         ),
       ),
@@ -166,6 +171,7 @@ class BillingAddressFormPage extends StatelessWidget {
 
 class GooglePayPage extends StatelessWidget {
   static const routeName = '/googlePay';
+
   const GooglePayPage({Key? key}) : super(key: key);
 
   @override
@@ -180,10 +186,22 @@ class GooglePayPage extends StatelessWidget {
           GooglePayButton(
             paymentConfigurationAsset: 'google_pay.json',
             paymentItems: const [
-              PaymentItem(amount: '100.00'),
+              PaymentItem(
+                amount: '1',
+                status: PaymentItemStatus.final_price,
+              ),
             ],
             onPaymentResult: (Map<String, dynamic> result) async {
-              print(result);
+              log(json.encode(result));
+
+              final token = result['paymentMethodData']?['tokenizationData']
+                  ?['token'] as String?;
+              if (token == null) {
+                return;
+              }
+
+              final request = GooglePayTokenizationRequest(token);
+              print(request);
               // apiClient.generateGooglePayToken(GooglePayTokenizationRequest(result.))
             },
           ),

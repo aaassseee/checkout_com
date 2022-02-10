@@ -15,12 +15,13 @@
           }
         },
         "parameters": {
-          "allowedAuthMethods": ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-          "allowedCardNetworks": ["AMEX", "DISCOVER", "MASTERCARD", "VISA"]
+          "allowedCardNetworks": ["AMEX", "DISCOVER", "MASTERCARD", "VISA"],
+          "allowedAuthMethods": ["PAN_ONLY", "CRYPTOGRAM_3DS"]
         }
       }
     ],
     "transactionInfo": {
+      "countryCode": "US",
       "currencyCode": "USD"
     }
   }
