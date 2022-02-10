@@ -60,7 +60,8 @@ class GooglePayTokenizationRequest extends TokenizationRequest {
 }
 
 class ApplePayTokenizationRequest extends TokenizationRequest {
-  const ApplePayTokenizationRequest(this.paymentResult);
+  ApplePayTokenizationRequest(String token)
+      : paymentResult = json.decode(token);
 
   final Map<String, dynamic> paymentResult;
 

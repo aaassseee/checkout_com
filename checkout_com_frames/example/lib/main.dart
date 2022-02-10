@@ -56,6 +56,10 @@ class ExampleApp extends StatelessWidget {
             page = const GooglePayPage();
             break;
 
+          case ApplePayPage.routeName:
+            page = const ApplePayPage();
+            break;
+
           default:
             throw UnimplementedError('page name not found');
         }
@@ -95,6 +99,12 @@ class HomePage extends StatelessWidget {
                 onPressed: () =>
                     Navigator.of(context).pushNamed(GooglePayPage.routeName),
                 child: const Text('Google pay'),
+              ),
+            if (defaultTargetPlatform == TargetPlatform.iOS)
+              ElevatedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(ApplePayPage.routeName),
+                child: const Text('Apple pay'),
               ),
           ],
         ),
@@ -201,6 +211,48 @@ class GooglePayPage extends StatelessWidget {
               }
 
               final request = GooglePayTokenizationRequest(token);
+              print(request);
+              // apiClient.generateGooglePayToken(GooglePayTokenizationRequest(result.))
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ApplePayPage extends StatelessWidget {
+  static const routeName = '/applePay';
+
+  const ApplePayPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Apple pay'),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ApplePayButton(
+            paymentConfigurationAsset: 'apple_pay.json',
+            paymentItems: const [
+              PaymentItem(
+                amount: '1',
+                label: 'nullable?',
+                status: PaymentItemStatus.final_price,
+              ),
+            ],
+            onPaymentResult: (Map<String, dynamic> result) async {
+              log(json.encode(result));
+
+              final token = result['token'] as String?;
+              if (token == null) {
+                return;
+              }
+
+              final request = ApplePayTokenizationRequest(token);
               print(request);
               // apiClient.generateGooglePayToken(GooglePayTokenizationRequest(result.))
             },

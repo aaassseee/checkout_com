@@ -11,6 +11,7 @@ import 'extension/response.dart';
 import 'model/local/api_error.dart';
 import 'model/local/log_event.dart';
 import 'model/service/environment.dart';
+import 'model/service/token_type.dart';
 import 'model/service/tokenization_request.dart';
 import 'model/service/tokenization_response.dart';
 
@@ -63,7 +64,7 @@ class CheckoutComApiClient {
     try {
       _logger.info(LogEvent(LogEventType.tokenRequested,
           event: {
-            logEventAttributeTokenType: request.tokenType.name,
+            logEventAttributeTokenType: request.tokenType.value,
           },
           metadata: _metadata));
       final response = await client
