@@ -18,8 +18,8 @@ class CardFormValue {
 
   CardType get cardType => CardUtility.getCardType(number);
 
-  Card getCard() =>
-      Card(number!.removeAllSpace, expirationYear!, expirationMonth!, cvv!);
+  CheckoutComCard getCard() => CheckoutComCard(
+      number!.removeAllSpace, expirationYear!, expirationMonth!, cvv!);
 
   @override
   String toString() {

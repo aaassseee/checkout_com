@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:checkout_com_frames/checkout_com_frames.dart' hide Card;
+import 'package:checkout_com_frames/checkout_com_frames.dart'
+    hide CheckoutComCard;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

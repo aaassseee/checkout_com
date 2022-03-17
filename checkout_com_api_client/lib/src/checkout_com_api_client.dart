@@ -105,7 +105,7 @@ class CheckoutComApiClient {
           GooglePayTokenizationRequest request) =>
       _generateToken(request);
 
-  Future<TokenizationResponse> generateApplePayToken(
+  Future<TokenizationSuccessResponse> generateApplePayToken(
           ApplePayTokenizationRequest request) =>
       _generateToken(request);
 }

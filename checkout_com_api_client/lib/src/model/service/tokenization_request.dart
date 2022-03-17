@@ -19,7 +19,7 @@ class CardTokenizationRequest extends TokenizationRequest {
   const CardTokenizationRequest(this.card,
       {this.name, this.billing, this.phone});
 
-  final Card card;
+  final CheckoutComCard card;
 
   final String? name;
 

@@ -1,5 +1,6 @@
-class Card {
-  const Card(this.number, this.expiryYear, this.expiryMonth, this.cvv);
+class CheckoutComCard {
+  const CheckoutComCard(
+      this.number, this.expiryYear, this.expiryMonth, this.cvv);
 
   final String number;
 
@@ -17,7 +18,7 @@ class Card {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Card &&
+      other is CheckoutComCard &&
           runtimeType == other.runtimeType &&
           number == other.number &&
           expiryYear == other.expiryYear &&
