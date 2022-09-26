@@ -5,52 +5,72 @@ import 'card.dart';
 import 'phone.dart';
 import 'token_type.dart';
 
-class CardTokenizationRequest {
-  CardTokenizationRequest(this.card, {this.billing, this.phone});
+abstract class TokenizationRequest {
+  const TokenizationRequest();
 
-  final Card card;
+  TokenType get tokenType;
+
+  Map? toJson();
+
+  String toJsonString() => json.encode(toJson());
+}
+
+class CardTokenizationRequest extends TokenizationRequest {
+  const CardTokenizationRequest(this.card,
+      {this.name, this.billing, this.phone});
+
+  final CheckoutComCard card;
+
+  final String? name;
 
   final BillingAddress? billing;
 
   final Phone? phone;
 
-  Map toJson() => {
-        'type': TokenType.card.value,
+  @override
+  TokenType get tokenType => TokenType.card;
+
+  @override
+  Map? toJson() => {
+        'type': tokenType.value,
         'number': card.number,
-        if (card.name != null) 'name': card.name,
+        if (name != null) 'name': name,
         'expiry_month': card.expiryMonth,
         'expiry_year': card.expiryYear,
         'cvv': card.cvv,
         if (billing != null) 'billing_address': billing!.toJson(),
         if (phone != null) 'phone': phone!.toJson(),
       };
-
-  String toJsonString() => json.encode(toJson());
 }
 
-class GooglePayTokenizationRequest {
-  GooglePayTokenizationRequest(
-      this.signature, this.protocolVersion, this.signedMessage);
+class GooglePayTokenizationRequest extends TokenizationRequest {
+  GooglePayTokenizationRequest(String token)
+      : paymentResult = json.decode(token);
 
-  String? signature;
+  final Map<String, dynamic> paymentResult;
 
-  String? protocolVersion;
+  @override
+  TokenType get tokenType => TokenType.googlePay;
 
-  String? signedMessage;
+  @override
+  Map? toJson() => {
+        'type': tokenType.value,
+        'token_data': paymentResult,
+      };
+}
 
-  Map? toJson() {
-    if (signature == null && protocolVersion == null && signedMessage == null) {
-      return null;
-    }
+class ApplePayTokenizationRequest extends TokenizationRequest {
+  ApplePayTokenizationRequest(String token)
+      : paymentResult = json.decode(token);
 
-    return {
-      'token_data': {
-        if (signature != null) 'signature': signature,
-        if (protocolVersion != null) 'protocolVersion': protocolVersion,
-        if (signedMessage != null) 'signedMessage': signedMessage,
-      }
-    };
-  }
+  final Map<String, dynamic> paymentResult;
 
-  String toJsonString() => json.encode(toJson());
+  @override
+  TokenType get tokenType => TokenType.applePay;
+
+  @override
+  Map? toJson() => {
+        'type': tokenType.value,
+        'token_data': paymentResult,
+      };
 }

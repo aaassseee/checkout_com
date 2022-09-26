@@ -1,5 +1,7 @@
-import 'package:checkout_com_frames/src/utility.dart';
+import 'package:checkout_com_api_client/checkout_com_api_client.dart';
 
+import '../extension.dart';
+import '../utility.dart';
 import 'card_type.dart';
 
 class CardFormValue {
@@ -15,6 +17,9 @@ class CardFormValue {
   String? cvv;
 
   CardType get cardType => CardUtility.getCardType(number);
+
+  CheckoutComCard getCard() => CheckoutComCard(
+      number!.removeAllSpace, expirationYear!, expirationMonth!, cvv!);
 
   @override
   String toString() {

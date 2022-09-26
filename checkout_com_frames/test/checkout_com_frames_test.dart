@@ -245,46 +245,44 @@ void main() {
     group('expiration date validation', () {
       withClock(Clock.fixed(DateTime(2022, 1, 1)), () {
         test('expiration date validation success', () {
-          expect(CardUtility.isValidExpirationDate('2022', '4'), true);
-          expect(CardUtility.isValidExpirationDate('2023', '2'), true);
-          expect(CardUtility.isValidExpirationDate('2022', '1'), true);
+          expect(CardUtility.isValidExpirationDate(2022, 4), true);
+          expect(CardUtility.isValidExpirationDate(2023, 2), true);
+          expect(CardUtility.isValidExpirationDate(2022, 1), true);
         });
 
         test('expiration date validation failed', () {
-          expect(CardUtility.isValidExpirationDate('2021', '4'), false);
-          expect(CardUtility.isValidExpirationDate('2021', '12'), false);
-          expect(CardUtility.isValidExpirationDate('1900', '1'), false);
+          expect(CardUtility.isValidExpirationDate(2021, 4), false);
+          expect(CardUtility.isValidExpirationDate(2021, 12), false);
+          expect(CardUtility.isValidExpirationDate(1900, 1), false);
         });
       });
     });
 
     group('cvv validation', () {
-      withClock(Clock.fixed(DateTime(2022, 1, 1)), () {
-        test('cvv validation success', () {
-          expect(CardUtility.isValidCvv('111', CardType.visa), true);
-          expect(CardUtility.isValidCvv('1111', CardType.amex), true);
-          expect(CardUtility.isValidCvv('111', CardType.discover), true);
-          expect(CardUtility.isValidCvv('111', CardType.unionpay), true);
-          expect(CardUtility.isValidCvv('111', CardType.jcb), true);
-          expect(CardUtility.isValidCvv('111', CardType.dinersclub), true);
-          expect(CardUtility.isValidCvv('111', CardType.mastercard), true);
-          expect(CardUtility.isValidCvv('111', CardType.maestro), true);
-          expect(CardUtility.isValidCvv('111', CardType.fallback), true);
-        });
+      test('cvv validation success', () {
+        expect(CardUtility.isValidCvv('111', CardType.visa), true);
+        expect(CardUtility.isValidCvv('1111', CardType.amex), true);
+        expect(CardUtility.isValidCvv('111', CardType.discover), true);
+        expect(CardUtility.isValidCvv('111', CardType.unionpay), true);
+        expect(CardUtility.isValidCvv('111', CardType.jcb), true);
+        expect(CardUtility.isValidCvv('111', CardType.dinersclub), true);
+        expect(CardUtility.isValidCvv('111', CardType.mastercard), true);
+        expect(CardUtility.isValidCvv('111', CardType.maestro), true);
+        expect(CardUtility.isValidCvv('111', CardType.fallback), true);
+      });
 
-        test('cvv validation failed', () {
-          expect(CardUtility.isValidCvv('11', CardType.visa), false);
-          expect(CardUtility.isValidCvv('111', CardType.amex), false);
-          expect(CardUtility.isValidCvv('11', CardType.discover), false);
-          expect(CardUtility.isValidCvv('11', CardType.unionpay), false);
-          expect(CardUtility.isValidCvv('11', CardType.jcb), false);
-          expect(CardUtility.isValidCvv('11', CardType.dinersclub), false);
-          expect(CardUtility.isValidCvv('11', CardType.mastercard), false);
-          expect(CardUtility.isValidCvv('11', CardType.maestro), false);
-          expect(CardUtility.isValidCvv('11', CardType.fallback), false);
-          expect(CardUtility.isValidCvv('a', CardType.fallback), false);
-          expect(CardUtility.isValidCvv('*', CardType.fallback), false);
-        });
+      test('cvv validation failed', () {
+        expect(CardUtility.isValidCvv('11', CardType.visa), false);
+        expect(CardUtility.isValidCvv('111', CardType.amex), false);
+        expect(CardUtility.isValidCvv('11', CardType.discover), false);
+        expect(CardUtility.isValidCvv('11', CardType.unionpay), false);
+        expect(CardUtility.isValidCvv('11', CardType.jcb), false);
+        expect(CardUtility.isValidCvv('11', CardType.dinersclub), false);
+        expect(CardUtility.isValidCvv('11', CardType.mastercard), false);
+        expect(CardUtility.isValidCvv('11', CardType.maestro), false);
+        expect(CardUtility.isValidCvv('11', CardType.fallback), false);
+        expect(CardUtility.isValidCvv('a', CardType.fallback), false);
+        expect(CardUtility.isValidCvv('*', CardType.fallback), false);
       });
     });
   });

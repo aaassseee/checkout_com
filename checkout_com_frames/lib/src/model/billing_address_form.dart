@@ -1,3 +1,4 @@
+import 'package:checkout_com_api_client/checkout_com_api_client.dart';
 import 'package:country/country.dart';
 
 class BillingFormValue {
@@ -41,6 +42,29 @@ class BillingFormValue {
 
   String get formattedAddress =>
       [addressOne, addressTwo, postcode, state].whereType<String>().join(', ');
+
+  BillingAddress? getBillingAddress() {
+    if (isEmpty) {
+      return null;
+    }
+
+    return BillingAddress(
+        addressOne!, addressTwo, postcode!, country!.alpha2, city!, state);
+  }
+
+  Phone? getPhone() {
+    if (isEmpty) {
+      return null;
+    }
+
+    final country = this.country;
+    final phone = this.phone;
+    if (country == null || phone == null || phone.isEmpty) {
+      return null;
+    }
+
+    return Phone(country.countryCode, phone);
+  }
 
   @override
   String toString() {

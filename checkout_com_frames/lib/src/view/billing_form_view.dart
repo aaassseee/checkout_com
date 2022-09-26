@@ -1,8 +1,9 @@
-import 'package:checkout_com_frames/src/l10n/l10n.dart';
-import 'package:checkout_com_frames/src/model/billing.dart';
+import 'package:country/country.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_country/flutter_country.dart';
+
+import '../l10n/l10n.dart';
+import '../model/billing_address_form.dart';
 
 typedef OnDoneTapped = void Function(BillingFormValue value);
 
@@ -155,11 +156,15 @@ class _BillingFormViewState extends State<BillingFormView> {
             items: [
               for (final country in Countries.values)
                 DropdownMenuItem(
-                  child: Text(country
-                      .getIsoShortNameByLocale(const Locale('zh', 'HK'))),
                   value: country,
+                  child: Text(country.isoShortNameByLanguage[
+                          Localizations.localeOf(context)
+                              .toLanguageTag()
+                              .toLowerCase()] ??
+                      'null'),
                 )
             ],
+            isExpanded: true,
             decoration: InputDecoration(
               label: Text(
                   CheckoutFramesLocalization.of(context).placeholderCountry),
@@ -176,7 +181,7 @@ class _BillingFormViewState extends State<BillingFormView> {
             decoration: InputDecoration(
               label:
                   Text(CheckoutFramesLocalization.of(context).placeholderPhone),
-              prefixText: '+' + (country?.countryCode ?? ''),
+              prefixText: '+${country?.countryCode ?? ''}',
             ),
             keyboardType: TextInputType.phone,
             validator: (value) {

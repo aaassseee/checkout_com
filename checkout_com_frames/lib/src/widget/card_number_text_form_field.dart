@@ -1,11 +1,10 @@
-import 'package:checkout_com_frames/src/extension.dart';
-import 'package:checkout_com_frames/src/utility.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../extension.dart';
 import '../l10n/l10n.dart';
 import '../model/card_type.dart';
+import '../utility.dart';
 
 class CardNumberTextFormField extends StatefulWidget {
   const CardNumberTextFormField({Key? key, required this.fieldKey})

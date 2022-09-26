@@ -1,9 +1,10 @@
-import 'package:checkout_com_frames/src/model/card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../checkout_com_frames.dart';
+import '../l10n/l10n.dart';
+import '../model/billing_address_form.dart';
+import '../model/card_form.dart';
+import '../widget/widget.dart';
 
 typedef OnPayTapped = Function(
     CardFormValue cardFormValue, BillingFormValue? billingFormValue);

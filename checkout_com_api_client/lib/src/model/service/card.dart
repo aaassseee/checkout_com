@@ -1,38 +1,34 @@
-class Card {
-  const Card(
-      this.number, this.name, this.expiryMonth, this.expiryYear, this.cvv);
+class CheckoutComCard {
+  const CheckoutComCard(
+      this.number, this.expiryYear, this.expiryMonth, this.cvv);
 
   final String number;
 
-  final String? name;
+  final int expiryYear;
 
-  final String expiryMonth;
-
-  final String expiryYear;
+  final int expiryMonth;
 
   final String cvv;
 
   @override
   String toString() {
-    return 'Card{number: $number, name: $name, expiryMonth: $expiryMonth, expiryYear: $expiryYear, cvv: $cvv}';
+    return 'Card{number: $number, expiryYear: $expiryYear, expiryMonth: $expiryMonth, cvv: $cvv}';
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Card &&
+      other is CheckoutComCard &&
           runtimeType == other.runtimeType &&
           number == other.number &&
-          name == other.name &&
-          expiryMonth == other.expiryMonth &&
           expiryYear == other.expiryYear &&
+          expiryMonth == other.expiryMonth &&
           cvv == other.cvv;
 
   @override
   int get hashCode =>
       number.hashCode ^
-      name.hashCode ^
-      expiryMonth.hashCode ^
       expiryYear.hashCode ^
+      expiryMonth.hashCode ^
       cvv.hashCode;
 }

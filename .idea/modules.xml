@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/checkout_com_api_client/checkout_com_api_client.iml" filepath="$PROJECT_DIR$/checkout_com_api_client/checkout_com_api_client.iml" />
       <module fileurl="file://$PROJECT_DIR$/checkout_com_frames/checkout_com_frames.iml" filepath="$PROJECT_DIR$/checkout_com_frames/checkout_com_frames.iml" />
+      <module fileurl="file://$PROJECT_DIR$/checkout_com_frames/android/checkout_com_frames_android.iml" filepath="$PROJECT_DIR$/checkout_com_frames/android/checkout_com_frames_android.iml" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,4 @@
-enum TokenType { card, googlePay }
+enum TokenType { card, googlePay, applePay }
 
 extension TokenTypeValueExtension on TokenType {
   String get value {
@@ -8,6 +8,9 @@ extension TokenTypeValueExtension on TokenType {
 
       case TokenType.googlePay:
         return 'googlepay';
+
+      case TokenType.applePay:
+        return 'applepay';
     }
   }
 }
