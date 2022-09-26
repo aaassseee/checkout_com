@@ -29,8 +29,8 @@ class _ExpirationMonthDropdownButtonFormFieldState
       items: [
         for (int month = 1; month <= DateTime.monthsPerYear; month++)
           DropdownMenuItem(
-            child: Text(DateFormat('MMM - MM').format(DateTime(0, month))),
             value: month,
+            child: Text(DateFormat('MMM - MM').format(DateTime(0, month))),
           ),
       ],
       value: month,
@@ -63,7 +63,7 @@ class ExpirationYearDropdownButtonFormField extends StatefulWidget {
   final GlobalKey<FormFieldState<int>> fieldKey;
 
   @override
-  _ExpirationYearDropdownButtonFormFieldState createState() =>
+  State<ExpirationYearDropdownButtonFormField> createState() =>
       _ExpirationYearDropdownButtonFormFieldState();
 }
 
@@ -79,8 +79,8 @@ class _ExpirationYearDropdownButtonFormFieldState
       items: List.generate(
         15,
         (index) => DropdownMenuItem(
-          child: Text('${nowYear + index}'),
           value: nowYear + index,
+          child: Text('${nowYear + index}'),
         ),
       ),
       value: year,

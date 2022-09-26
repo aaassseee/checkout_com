@@ -57,13 +57,13 @@ class BillingFormValue {
       return null;
     }
 
-    final _country = country;
-    final _phone = phone;
-    if (_country == null || _phone == null || _phone.isEmpty) {
+    final country = this.country;
+    final phone = this.phone;
+    if (country == null || phone == null || phone.isEmpty) {
       return null;
     }
 
-    return Phone(_country.countryCode, _phone);
+    return Phone(country.countryCode, phone);
   }
 
   @override

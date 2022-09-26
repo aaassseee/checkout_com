@@ -13,7 +13,7 @@ class CvvTextFormField extends StatefulWidget {
   final GlobalKey<FormFieldState<String>> cardNumberFieldKey;
 
   @override
-  _CvvTextFormFieldState createState() => _CvvTextFormFieldState();
+  State<CvvTextFormField> createState() => _CvvTextFormFieldState();
 }
 
 class _CvvTextFormFieldState extends State<CvvTextFormField> {

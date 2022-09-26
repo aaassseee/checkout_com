@@ -140,9 +140,9 @@ class CardFormPage extends StatelessWidget {
                         name: billingFormValue?.name,
                         billing: billingFormValue?.getBillingAddress(),
                         phone: billingFormValue?.getPhone()));
-                print(tokenizationResult);
-              } catch (e) {
-                print(e);
+                debugPrint(tokenizationResult.toString());
+              } catch (error) {
+                debugPrint(error.toString());
               }
             },
           ),
@@ -212,8 +212,8 @@ class GooglePayPage extends StatelessWidget {
               }
 
               final request = GooglePayTokenizationRequest(token);
-              print(request);
-              // apiClient.generateGooglePayToken(GooglePayTokenizationRequest(result.))
+              final response = await apiClient.generateGooglePayToken(request);
+              debugPrint(response.toString());
             },
           ),
         ],
@@ -254,8 +254,8 @@ class ApplePayPage extends StatelessWidget {
               }
 
               final request = ApplePayTokenizationRequest(token);
-              print(request);
-              // apiClient.generateGooglePayToken(GooglePayTokenizationRequest(result.))
+              final response = await apiClient.generateApplePayToken(request);
+              debugPrint(response.toString());
             },
           ),
         ],

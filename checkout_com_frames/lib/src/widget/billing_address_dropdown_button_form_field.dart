@@ -48,42 +48,42 @@ class BillingAddressDropdownButtonFormFieldState
                 CheckoutFramesLocalization.of(context).selectBillingDetails),
           ),
           PopupMenuItem(
+            value: 'add',
             child:
                 Text(CheckoutFramesLocalization.of(context).billingDetailsAdd),
-            value: 'add',
           ),
         ] else ...[
           PopupMenuItem(
             child: Text(billing.formattedAddress),
           ),
           PopupMenuItem(
+            value: 'edit',
             child:
                 Text(CheckoutFramesLocalization.of(context).billingDetailsEdit),
-            value: 'edit',
           ),
         ],
       ],
       onSelected: (value) async {
         switch (value) {
           case 'add':
-            final _billing = await widget.onAddTapped();
-            if (_billing == null) {
+            final billing = await widget.onAddTapped();
+            if (billing == null) {
               return;
             }
 
             setState(() {
-              billing = _billing;
+              this.billing = billing;
             });
             break;
 
           case 'edit':
-            final _billing = await widget.onEditTapped(billing);
-            if (_billing == null) {
+            final billing = await widget.onEditTapped(this.billing);
+            if (billing == null) {
               return;
             }
 
             setState(() {
-              billing = _billing;
+              this.billing = billing;
             });
             break;
         }

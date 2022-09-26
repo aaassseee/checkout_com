@@ -156,12 +156,12 @@ class _BillingFormViewState extends State<BillingFormView> {
             items: [
               for (final country in Countries.values)
                 DropdownMenuItem(
+                  value: country,
                   child: Text(country.isoShortNameByLanguage[
                           Localizations.localeOf(context)
                               .toLanguageTag()
                               .toLowerCase()] ??
                       'null'),
-                  value: country,
                 )
             ],
             isExpanded: true,
@@ -181,7 +181,7 @@ class _BillingFormViewState extends State<BillingFormView> {
             decoration: InputDecoration(
               label:
                   Text(CheckoutFramesLocalization.of(context).placeholderPhone),
-              prefixText: '+' + (country?.countryCode ?? ''),
+              prefixText: '+${country?.countryCode ?? ''}',
             ),
             keyboardType: TextInputType.phone,
             validator: (value) {
