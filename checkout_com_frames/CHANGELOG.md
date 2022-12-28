@@ -1,3 +1,7 @@
+## 0.0.5
+
+* updated dependencies
+
 ## 0.0.4
 
 * updated dependencies
@@ -12,4 +16,4 @@
 
 ## 0.0.1
 
-* TODO: Describe initial release.
+* initial release.
