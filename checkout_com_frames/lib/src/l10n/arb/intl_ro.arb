@@ -1,7 +1,5 @@
 {
   "@@locale": "ro",
-  "titleCardDetails": "Detalii Card",
-  "labelAcceptedCards": "Carduri Acceptate",
   "placeholderCardNumber": "Numar de Card",
   "errorCardNumber": "Introduceti un numar de card valid",
   "labelExpirationDate": "Date expirarii*",

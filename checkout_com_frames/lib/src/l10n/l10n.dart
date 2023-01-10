@@ -51,26 +51,6 @@ class CheckoutFramesLocalization {
         context, CheckoutFramesLocalization);
   }
 
-  /// `Card Details`
-  String get titleCardDetails {
-    return Intl.message(
-      'Card Details',
-      name: 'titleCardDetails',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Accepted Cards`
-  String get labelAcceptedCards {
-    return Intl.message(
-      'Accepted Cards',
-      name: 'labelAcceptedCards',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Card number*`
   String get placeholderCardNumber {
     return Intl.message(
@@ -371,6 +351,8 @@ class AppLocalizationDelegate
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'fr'),
       Locale.fromSubtags(languageCode: 'ro'),
+      Locale.fromSubtags(languageCode: 'zh'),
+      Locale.fromSubtags(languageCode: 'zh', countryCode: 'HK'),
     ];
   }
 

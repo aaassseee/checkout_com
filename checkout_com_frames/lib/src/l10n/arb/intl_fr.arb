@@ -1,7 +1,5 @@
 {
   "@@locale": "fr",
-  "titleCardDetails": "Détails de la carte",
-  "labelAcceptedCards": "Cartes acceptées",
   "placeholderCardNumber": "Numéro de carte *",
   "errorCardNumber": "Le numéro de la carte n'est pas valide",
   "labelExpirationDate": "Date d'expiration *",
