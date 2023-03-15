@@ -203,7 +203,7 @@ class _BillingFormViewState extends State<BillingFormView> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (Form.of(context)?.validate() != true) {
+                      if (Form.of(context).validate() != true) {
                         return;
                       }
 

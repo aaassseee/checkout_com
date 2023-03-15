@@ -84,7 +84,7 @@ class _CardFormViewState extends State<CardFormView> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      if (!(Form.of(context)?.validate() ?? false)) {
+                      if (!Form.of(context).validate()) {
                         return;
                       }
 
