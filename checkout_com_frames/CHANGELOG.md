@@ -1,3 +1,7 @@
+## 0.0.7
+
+* fix lint warning
+
 ## 0.0.6
 
 * add zh and zh_HK support

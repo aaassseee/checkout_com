@@ -1,6 +1,6 @@
 name: checkout_com_frames
 description: Checkout.com frames SDK for Dart
-version: 0.0.6
+version: 0.0.7
 homepage: https://github.com/aaassseee/checkout_com
 repository: https://github.com/aaassseee/checkout_com/tree/develop/checkout_com_frames
 issue_tracker: https://github.com/aaassseee/checkout_com/issues
