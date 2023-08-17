@@ -1,3 +1,8 @@
+## 1.0.0
+
+* stable release
+* update dependencies
+
 ## 0.0.7
 
 * fix lint warning
