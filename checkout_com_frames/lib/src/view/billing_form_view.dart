@@ -157,7 +157,7 @@ class _BillingFormViewState extends State<BillingFormView> {
               for (final country in Countries.values)
                 DropdownMenuItem(
                   value: country,
-                  child: Text(country.isoShortNameByLanguage[
+                  child: Text(country.isoShortNameByLocale[
                           Localizations.localeOf(context)
                               .toLanguageTag()
                               .toLowerCase()] ??
@@ -203,7 +203,7 @@ class _BillingFormViewState extends State<BillingFormView> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      if (Form.of(context)?.validate() != true) {
+                      if (Form.of(context).validate() != true) {
                         return;
                       }
 

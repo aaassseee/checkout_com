@@ -47,8 +47,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "La valeur doit être plus longue que 3 caractères"),
         "errorState": MessageLookupByLibrary.simpleMessage(
             "La valeur doit être plus longue que 3 caractères"),
-        "labelAcceptedCards":
-            MessageLookupByLibrary.simpleMessage("Cartes acceptées"),
         "labelBillingDetails":
             MessageLookupByLibrary.simpleMessage("Détails de facturation"),
         "labelExpirationDate":
@@ -73,8 +71,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectBillingDetails":
             MessageLookupByLibrary.simpleMessage("SÉLECTIONNER"),
         "titleBillingDetails":
-            MessageLookupByLibrary.simpleMessage("Détails de facturation"),
-        "titleCardDetails":
-            MessageLookupByLibrary.simpleMessage("Détails de la carte")
+            MessageLookupByLibrary.simpleMessage("Détails de facturation")
       };
 }

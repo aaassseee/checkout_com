@@ -47,8 +47,6 @@ class MessageLookup extends MessageLookupByLibrary {
             "Codul postal trebuie sa contina cel putin 3 caractere"),
         "errorState": MessageLookupByLibrary.simpleMessage(
             "Statul trebuie sa contina mimim 3 caractere"),
-        "labelAcceptedCards":
-            MessageLookupByLibrary.simpleMessage("Carduri Acceptate"),
         "labelBillingDetails":
             MessageLookupByLibrary.simpleMessage("Adress de facturare"),
         "labelExpirationDate":
@@ -73,7 +71,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectBillingDetails":
             MessageLookupByLibrary.simpleMessage("SELECTATI"),
         "titleBillingDetails":
-            MessageLookupByLibrary.simpleMessage("Detalii Facturare"),
-        "titleCardDetails": MessageLookupByLibrary.simpleMessage("Detalii Card")
+            MessageLookupByLibrary.simpleMessage("Detalii Facturare")
       };
 }

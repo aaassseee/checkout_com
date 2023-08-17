@@ -1,7 +1,5 @@
 {
   "@@locale": "en",
-  "titleCardDetails": "Card Details",
-  "labelAcceptedCards": "Accepted Cards",
   "placeholderCardNumber": "Card number*",
   "errorCardNumber": "The card number is invalid",
   "labelExpirationDate": "Expiration date*",

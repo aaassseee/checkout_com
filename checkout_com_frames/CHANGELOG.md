@@ -1,3 +1,16 @@
+## 1.0.0
+
+* stable release
+* update dependencies
+
+## 0.0.7
+
+* fix lint warning
+
+## 0.0.6
+
+* add zh and zh_HK support
+
 ## 0.0.5
 
 * updated dependencies
