@@ -6,7 +6,7 @@ repository: https://github.com/aaassseee/checkout_com/tree/develop/checkout_com_
 issue_tracker: https://github.com/aaassseee/checkout_com/issues
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=2.12.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
