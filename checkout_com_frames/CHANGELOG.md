@@ -1,3 +1,7 @@
+## 1.0.0+1
+
+* update dependencies
+
 ## 1.0.0
 
 * stable release
